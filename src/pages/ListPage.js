@@ -18,7 +18,7 @@ const ListPage = () => {
 
     const deleteBlog = (e, id) => {
         e.stopPropagation();
-        axios.delete(`http://localhost:3001/posts/${id}`).then((res) => {
+        axios.delete(`http://localhost:3001/posts/${id}`).then(() => {
             setPosts((prevState) => prevState.filter((post) => post.id !== id));
         });
     };
