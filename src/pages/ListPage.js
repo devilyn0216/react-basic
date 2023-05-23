@@ -2,20 +2,59 @@ import axios from "axios";
 import {useEffect, useState} from "react";
 import Card from "./Card";
 import {Link, useHistory} from "react-router-dom";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const ListPage = () => {
     const history = useHistory();
     const [posts, setPosts] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     const getPosts = () => {
         axios.get('http://localhost:3001/posts').then((res) => {
             setPosts(res.data);
+            setLoading(false);
+        });
+    };
+
+    const deleteBlog = (e, id) => {
+        e.stopPropagation();
+        axios.delete(`http://localhost:3001/posts/${id}`).then((res) => {
+            setPosts((prevState) => prevState.filter((post) => post.id !== id));
         });
     };
 
     useEffect(() => {
         getPosts();
     }, []);
+
+    const renderBlogList = () => {
+        if (loading) {
+            return (<LoadingSpinner />);
+        }
+
+        if (posts.length === 0) {
+            return (<div>No blog posts found</div>);
+        }
+
+        return posts.map(post => {
+            return (
+                <Card
+                    key={post.id}
+                    title={post.title}
+                    onClick={() => history.push('/blogs/edit')}
+                >
+                    <div>
+                        <button
+                            className="btn btn-danger btn-sm"
+                            onClick={(e) => deleteBlog(e, post.id)}
+                        >
+                            Delete
+                        </button>
+                    </div>
+                </Card>
+            );
+        });
+    };
 
     return (
         <div>
@@ -27,27 +66,7 @@ const ListPage = () => {
                     </Link>
                 </div>
             </div>
-            {posts.map(post => {
-                return (
-                    <Card
-                        key={post.id}
-                        title={post.title}
-                        onClick={() => history.push('/blogs/edit')}
-                    >
-                        <div>
-                            <button
-                                className="btn btn-danger btn-sm"
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    console.log('delete blogs')
-                                }}
-                            >
-                                Delete
-                            </button>
-                        </div>
-                    </Card>
-                );
-            })}
+            {renderBlogList()}
         </div>
     );
 };
