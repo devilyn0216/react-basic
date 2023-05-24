@@ -1,24 +1,24 @@
 {
   "posts": [
     {
-      "title": "fdsafd",
-      "body": "fdsafdsa",
-      "id": 1
+      "title": "ㄹㅇㄴㅁㄹ11221fds",
+      "body": "ㄹㅇㄴㅁㄹㅇㄴㅁ1122fds",
+      "createdAt": 1684939560814,
+      "id": 3,
+      "publish": true
     },
     {
-      "title": "fdaf",
-      "body": "fdasfd",
-      "id": 2
+      "title": "fagdg",
+      "body": "fdsgdf",
+      "createdAt": 1684941328910,
+      "id": 4
     },
     {
       "title": "fdsaf",
-      "body": "dsafdsa",
-      "id": 3
-    },
-    {
-      "title": "g3542",
-      "body": "gfdsg",
-      "id": 4
+      "body": "fdsafd",
+      "publish": false,
+      "createdAt": 1684942929584,
+      "id": 5
     }
   ]
 }
