@@ -25,9 +25,11 @@ const BlogList = ({ isAdmin }) => {
 
     const onClickPageButton = (page) => {
         history.push(`${location.pathname}?page=${page}`);
+        setCurrentPage(page);
+        getPosts(page);
     };
 
-    const getPosts = useCallback((page = 1) => {
+    const getPosts = (page = 1) => {
         let params = {
             _page: page,
             _limit: limit,
@@ -47,13 +49,12 @@ const BlogList = ({ isAdmin }) => {
             setPosts(res.data);
             setLoading(false);
         });
-    }, [isAdmin, searchText]);
+    };
 
     useEffect(() => {
-        console.log(1);
         setCurrentPage(parseInt(pageParam) || 1);
         getPosts(parseInt(pageParam) || 1);
-    }, [pageParam, getPosts]);
+    }, []);
 
     const deleteBlog = (e, id) => {
         e.stopPropagation();
@@ -91,8 +92,12 @@ const BlogList = ({ isAdmin }) => {
         });
     };
 
-    const onSearch = () => {
-        getPosts(1);
+    const onSearch = (e) => {
+        if(e.key === 'Enter'){
+            history.push(`${location.pathname}?page=1`);
+            setCurrentPage(1);
+            getPosts(1);
+        }
     };
 
     return (
