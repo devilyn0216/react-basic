@@ -6,8 +6,6 @@ const Pagination = ({ currentPage, numberOfPages, onClick, limit}) => {
     const startPage = limit * (currentSet - 1) + 1;
     const numberOfPageForSet = currentSet === lastSet ? numberOfPages%limit : limit;
 
-    console.log(currentSet, lastSet, startPage, numberOfPageForSet);
-
     return (
         <nav aria-label="Page navigation example">
             <ul className="pagination justify-content-center">
