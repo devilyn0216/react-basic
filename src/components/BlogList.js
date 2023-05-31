@@ -1,7 +1,7 @@
 import LoadingSpinner from "./LoadingSpinner";
 import Card from "./Card";
 import {useHistory, useLocation} from "react-router-dom";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import axios from "axios";
 import {bool} from "prop-types";
 import Pagination from "./Pagination";
@@ -24,10 +24,9 @@ const BlogList = ({ isAdmin }) => {
 
     const onClickPageButton = (page) => {
         history.push(`${location.pathname}?page=${page}`);
-        getPosts(page);
     };
 
-    const getPosts = (page = 1) => {
+    const getPosts = useCallback((page = 1) => {
         let params = {
             _page: page,
             _limit: limit,
@@ -46,12 +45,13 @@ const BlogList = ({ isAdmin }) => {
             setPosts(res.data);
             setLoading(false);
         });
-    };
+    }, [isAdmin]);
 
     useEffect(() => {
+        console.log(1);
         setCurrentPage(parseInt(pageParam) || 1);
         getPosts(parseInt(pageParam) || 1);
-    }, [pageParam]);
+    }, [pageParam, getPosts]);
 
     const deleteBlog = (e, id) => {
         e.stopPropagation();

@@ -11,7 +11,7 @@ const Pagination = ({ currentPage, numberOfPages, onClick, limit}) => {
             <ul className="pagination justify-content-center">
                 {currentSet !== 1 && <li className="page-item">
                     <div
-                        className="page-link cursor-pointer" href="#"
+                        className="page-link cursor-pointer"
                         onClick={() => onClick(startPage - limit)}
                     >
                         Previous
@@ -39,7 +39,7 @@ const Pagination = ({ currentPage, numberOfPages, onClick, limit}) => {
                 }
                 {currentSet !== lastSet && <li className="page-item">
                     <div
-                        className="page-link cursor-pointer" href="#"
+                        className="page-link cursor-pointer"
                         onClick={() => onClick(startPage + limit)}
                     >
                         Next
