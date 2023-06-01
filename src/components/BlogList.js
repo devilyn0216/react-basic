@@ -5,6 +5,7 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import propTypes from "prop-types";
 import Pagination from "./Pagination";
+import Toast from "./Toast";
 
 const BlogList = ({ isAdmin }) => {
     const history = useHistory();
@@ -102,6 +103,12 @@ const BlogList = ({ isAdmin }) => {
 
     return (
         <div>
+            <Toast
+                toasts={[
+                    {text: 'error'},
+                    {text: 'success', type: 'success'}
+                ]}
+            />
             <input
                 type="text"
                 placeholder="Search.."
