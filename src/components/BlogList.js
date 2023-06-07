@@ -1,14 +1,15 @@
 import LoadingSpinner from "./LoadingSpinner";
 import Card from "./Card";
 import {useHistory, useLocation} from "react-router-dom";
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useState} from "react";
 import axios from "axios";
 import propTypes from "prop-types";
 import Pagination from "./Pagination";
 import Toast from "./Toast";
-import { v4 as uuidv4 } from 'uuid';
+import useToast from "../hooks/toast";
 
 const BlogList = ({ isAdmin }) => {
+    const [toasts, addToast, deleteToast] = useToast();
     const history = useHistory();
     const location = useLocation();
     const params = new URLSearchParams(location.search);
@@ -19,8 +20,6 @@ const BlogList = ({ isAdmin }) => {
     const [numberOfPosts, setNumberOfPosts] = useState(0);
     const [numberOfPages, setNumberOfPages] = useState(0);
     const [searchText, setSearchText] = useState('');
-    const [, setToastRerender] = useState(false);
-    const toasts = useRef([]);
     const limit = 5;
 
     useEffect(() => {
@@ -59,29 +58,6 @@ const BlogList = ({ isAdmin }) => {
         setCurrentPage(parseInt(pageParam) || 1);
         getPosts(parseInt(pageParam) || 1);
     }, []);
-
-    const deleteToast = (id) => {
-        const filteredToasts = toasts.current.filter((toast) => {
-            return toast.id !== id;
-        });
-
-        toasts.current = filteredToasts;
-        setToastRerender(prev => !prev);
-    }
-
-    const addToast = (toast) => {
-        const id = uuidv4();
-        const toastWithId = {
-            ...toast,
-            id
-        };
-        toasts.current = [...toasts.current, toastWithId];
-        setToastRerender(prev => !prev);
-
-        setTimeout(() => {
-            deleteToast(id);
-        }, 5000);
-    }
 
     const deleteBlog = (e, id) => {
         e.stopPropagation();
@@ -134,7 +110,7 @@ const BlogList = ({ isAdmin }) => {
     return (
         <div>
             <Toast
-                toasts={toasts.current}
+                toasts={toasts}
                 deleteToast={deleteToast}
             />
             <input
