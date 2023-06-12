@@ -3,9 +3,11 @@ import NavBar from "./components/NavBar";
 import routes from "./routes";
 import Toast from "./components/Toast";
 import useToast from "./hooks/toast";
+import {useSelector} from "react-redux";
 
 function App() {
-    const [toasts, addToast, deleteToast] = useToast();
+    const toasts = useSelector(state => state.toast.toasts);
+    const {deleteToast} = useToast();
 
     return (
         <Router>
@@ -22,10 +24,8 @@ function App() {
                             key={route.path}
                             exact
                             path={route.path}
-                            // component={route.component}
-                        >
-                            <Component addToast={addToast} />
-                        </Route>;
+                            component={route.component}
+                        />
                     })}
                 </Switch>
             </div>

@@ -5,11 +5,10 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import propTypes from "prop-types";
 import Pagination from "./Pagination";
-import Toast from "./Toast";
 import useToast from "../hooks/toast";
 
 const BlogList = ({ isAdmin }) => {
-    const [toasts, addToast, deleteToast] = useToast();
+    const {addToast} = useToast();
     const history = useHistory();
     const location = useLocation();
     const params = new URLSearchParams(location.search);
@@ -109,10 +108,6 @@ const BlogList = ({ isAdmin }) => {
 
     return (
         <div>
-            <Toast
-                toasts={toasts}
-                deleteToast={deleteToast}
-            />
             <input
                 type="text"
                 placeholder="Search.."
