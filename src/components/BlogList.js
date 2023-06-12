@@ -7,6 +7,7 @@ import propTypes from "prop-types";
 import Pagination from "./Pagination";
 import Toast from "./Toast";
 import useToast from "../hooks/toast";
+import {useSelector} from "react-redux";
 
 const BlogList = ({ isAdmin }) => {
     const [toasts, addToast, deleteToast] = useToast();
@@ -21,6 +22,10 @@ const BlogList = ({ isAdmin }) => {
     const [numberOfPages, setNumberOfPages] = useState(0);
     const [searchText, setSearchText] = useState('');
     const limit = 5;
+    const toasts1 = useSelector((state) => {
+        return state.toast.toasts
+    });
+    console.log('hello', toasts1);
 
     useEffect(() => {
         setNumberOfPages( Math.ceil(numberOfPosts/limit));
