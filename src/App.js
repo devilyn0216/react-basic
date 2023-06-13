@@ -1,4 +1,4 @@
-import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import NavBar from "./components/NavBar";
 import routes from "./routes";
 import Toast from "./components/Toast";
@@ -34,25 +34,17 @@ function App() {
                 deleteToast={deleteToast}
             />
             <div className="container mt-3">
-                <Switch>
+                <Routes>
                     {routes.map((route) => {
-                        if (route.auth) {
-                            return <ProtectedRoute
-                                component={route.component}
-                                path={route.path}
-                                key={route.path}
-                                exact
-                            />;
-                        }
-
                         return <Route
                             key={route.path}
-                            exact
                             path={route.path}
-                            component={route.component}
+                            element={route.auth ? <ProtectedRoute
+                                element={route.element}
+                            /> : route.element}
                         />
                     })}
-                </Switch>
+                </Routes>
             </div>
         </Router>
 
