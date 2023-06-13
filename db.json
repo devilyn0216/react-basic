@@ -8,12 +8,6 @@
       "publish": true
     },
     {
-      "title": "fagdg",
-      "body": "fdsgdf",
-      "createdAt": 1684941328910,
-      "id": 4
-    },
-    {
       "title": "fdsaf",
       "body": "fdsafd",
       "publish": false,
@@ -35,25 +29,11 @@
       "id": 7
     },
     {
-      "title": "fdsafd",
-      "body": "fdsaf",
-      "publish": true,
-      "createdAt": 1685545462563,
-      "id": 19
-    },
-    {
       "title": "fdsaf",
       "body": "fdsafdsa",
       "publish": true,
       "createdAt": 1686149882896,
       "id": 20
-    },
-    {
-      "title": "fdsafd",
-      "body": "fdsaf ",
-      "publish": true,
-      "createdAt": 1686149907858,
-      "id": 21
     },
     {
       "title": "1",

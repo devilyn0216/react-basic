@@ -70,7 +70,8 @@ const BlogList = ({ isAdmin }) => {
     const deleteBlog = (e, id) => {
         e.stopPropagation();
         axios.delete(`http://localhost:3001/posts/${id}`).then(() => {
-            setPosts((prevState) => prevState.filter((post) => post.id !== id));
+            // setPosts((prevState) => prevState.filter((post) => post.id !== id));
+            getPosts(1);
             addToast({
                 text: 'Successfully deleted',
                 type: 'success'
