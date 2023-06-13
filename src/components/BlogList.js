@@ -1,7 +1,7 @@
 import LoadingSpinner from "./LoadingSpinner";
 import Card from "./Card";
 import {useHistory, useLocation} from "react-router-dom";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import axios from "axios";
 import propTypes from "prop-types";
 import Pagination from "./Pagination";
@@ -19,6 +19,8 @@ const BlogList = ({ isAdmin }) => {
     const [numberOfPosts, setNumberOfPosts] = useState(0);
     const [numberOfPages, setNumberOfPages] = useState(0);
     const [searchText, setSearchText] = useState('');
+    const [error, setError] = useState('');
+
     const limit = 5;
 
     useEffect(() => {
@@ -31,7 +33,7 @@ const BlogList = ({ isAdmin }) => {
         getPosts(page);
     };
 
-    const getPosts = (page = 1) => {
+    const getPosts = useCallback((page = 1) => {
         let params = {
             _page: page,
             _limit: limit,
@@ -50,8 +52,15 @@ const BlogList = ({ isAdmin }) => {
             setNumberOfPosts(res.headers['x-total-count']);
             setPosts(res.data);
             setLoading(false);
+        }).catch(e => {
+            setLoading(false);
+            setError('Somthing went wrong in database');
+            addToast({
+                text: 'Somthing went wrong ',
+                type: 'danger'
+            });
         });
-    };
+    }, [isAdmin, searchText]);
 
     useEffect(() => {
         setCurrentPage(parseInt(pageParam) || 1);
@@ -68,10 +77,6 @@ const BlogList = ({ isAdmin }) => {
             });
         });
     };
-
-    useEffect(() => {
-        getPosts();
-    }, []);
 
     if (loading) {
         return (<LoadingSpinner />);
@@ -105,6 +110,10 @@ const BlogList = ({ isAdmin }) => {
             getPosts(1);
         }
     };
+
+    if(error){
+        return <div>{error}</div>;
+    }
 
     return (
         <div>
