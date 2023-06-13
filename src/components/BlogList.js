@@ -56,7 +56,7 @@ const BlogList = ({ isAdmin }) => {
             setLoading(false);
             setError('Somthing went wrong in database');
             addToast({
-                text: 'Somthing went wrong ',
+                text: 'Somthing went wrong',
                 type: 'danger'
             });
         });
@@ -74,6 +74,11 @@ const BlogList = ({ isAdmin }) => {
             addToast({
                 text: 'Successfully deleted',
                 type: 'success'
+            });
+        }).catch(e => {
+            addToast({
+                text: 'The blog could not be deleted.',
+                type: 'danger'
             });
         });
     };
